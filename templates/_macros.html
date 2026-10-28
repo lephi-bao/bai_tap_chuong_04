@@ -29,17 +29,15 @@
 {% macro pagination(page, pages, endpoint) %}
 <nav aria-label="Page navigation" class="mt-4">
   <ul class="pagination justify-content-center">
-    <!-- Nút "Trước" -->
     {% if page > 1 %}
     <li class="page-item">
       <a class="page-link" href="{{ url_for(endpoint, page=page-1) }}"
         >&laquo; Trước</a
       >
     </li>
-    {% endif %}
-
-    <!-- Danh sách các trang: Trang hiện tại in đậm, không phải liên kết -->
-    {% for p in range(1, pages + 1) %} {% if p == page %}
+    {% endif %} {% for p in range(1, pages + 1) %}
+    <!-- DÙNG 2 DẤU BẰNG == ĐỂ SO SÁNH -->
+    {% if p == page %}
     <li class="page-item active" aria-current="page">
       <span class="page-link fw-bold">{{ p }}</span>
     </li>
@@ -47,10 +45,7 @@
     <li class="page-item">
       <a class="page-link" href="{{ url_for(endpoint, page=p) }}">{{ p }}</a>
     </li>
-    {% endif %} {% endfor %}
-
-    <!-- Nút "Sau" -->
-    {% if page < pages %}
+    {% endif %} {% endfor %} {% if page < pages %}
     <li class="page-item">
       <a class="page-link" href="{{ url_for(endpoint, page=page+1) }}"
         >Sau &raquo;</a
